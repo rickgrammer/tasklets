@@ -26,7 +26,7 @@ class Task:
 
     def start_task(self):
         this.start_time = datetime.datetime.now()
-        #push to task list
+        # push to task list
 
     def end_task(self):
         self.end_time = datetime.datetime.now()
