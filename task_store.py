@@ -8,19 +8,23 @@ class Store:
         self._store_path = self.store_path
 
     def _push_task(self, compressed_task):
-        with gzip.open(self._store_path) as producer:
-            with gzip.open('_tmp_store.tsk', 'wb') as consumer:
-                self.__update_store(producer, consumer, compressed_task)
-        os.rename('_tmp_store.tsk', self.store_path)
+        with gzip.open(_store_path, 'a') as consumer:
+            consumer.write(compressed_task)
 
     def push_task(self, task):
         compressed_task = gzip.compress(repr(task).encode())
         self._push_task(compressed_task)
 
-    def __update_store(producer, consumer, compressed_task):
-        while True:
-            produced = producer.read(1)
-            if not produced: return
-            consumer.write(produced)
-        consumer.write(compressed_task)
+    def get_tasks(id=None):
+        with gzip.open(self._store_path, 'rb') as store_fp:
+            tasks=eval(store_fp.read().decode())
+            if not id:
+                return tasks
+            else:
+                for task in tasks:
+                    if task.id == id: return tas
+        raise Exception(id + ' not found.')
+
+
+
 

@@ -1,4 +1,6 @@
 import datetime 
+import random
+import string
 
 class Task:
     '''
@@ -14,6 +16,7 @@ class Task:
             start_time=None,
             end_time=None
             ):
+        self.id = self._create_task_id()
         self.title = title
         self.description = description
         self.tag = tag
@@ -37,4 +40,8 @@ class Task:
         if self.is_finished:
             return self.end_time - self.start_time
         return 'Task is not yet finished.'
+
+    def _create_task_id(self):
+        return ''.join(random.choice(string.ascii_lowercase + string.digits) for x in range(20))
+    
 
