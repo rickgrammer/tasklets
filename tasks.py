@@ -5,9 +5,10 @@ import string
 class Task:
     '''
     priority: 5, 4, 3, 2, 1, 0 ; 0 being the highest priority
+    status: created, paused, finished, running
     '''
     def __init__(self,
-            title,
+            name,
             description='<No Description>',
             tag='general',
             priority=3,
@@ -17,7 +18,7 @@ class Task:
             end_time=None
             ):
         self.id = self._create_task_id()
-        self.title = title
+        self.name = name
         self.description = description
         self.tag = tag
         self.priority = priority
@@ -25,6 +26,7 @@ class Task:
         self.expected_time = expected_time
         self.start_time = start_time
         self.end_time = end_time
+        self.status = 'new'
         self.is_finished = False
 
     def start_task(self):
@@ -34,6 +36,9 @@ class Task:
     def end_task(self):
         self.end_time = datetime.datetime.now()
         self.is_finished = True
+
+    def change_task_status(status):
+        self.status = status
 
     @property
     def time_taken(self):
