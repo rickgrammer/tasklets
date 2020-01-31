@@ -3,6 +3,9 @@ import gzip
 import io
 
 class Store:
+    '''
+        A centralised store where each task is stored.
+    '''
 
     def __init__(self, store_path='/opt/tasklets/store.tsk'):
         self._store_path = self.store_path
