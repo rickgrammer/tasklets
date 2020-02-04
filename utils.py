@@ -1,8 +1,22 @@
 import datetime
-from dateutils import utils as dateutils
+from dateutil import parser as date_parser
+
+verbose_days = {'mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun' }
 
 def make_EOD(d):
-    return d.replace(hour=23, minute=59, second=59, microsecond=0)
+    return d.replace(hour=20, minute=00, second=00, microsecond=0)
+
+def verbose_day_to_datetime(verbose):
+    td_1 = datetime.timedelta(days=1)
+    if verbose == 'today':
+        parsed_date = date_parser.parse(verbose)
+    elif verbose == 'tomorrow':
+        parsed_date = datetime.datetime.now() + td_1
+    elif verbose in verbose_days:
+        parsed_date = parser.parse(verbose)
+    else:
+        raise Exception(verbose + ' is not a supported format. \nFormats supported: %s' % verbose_days)
+    return make_EOD(parsed_date)
 
 def parse_date(unparsed_date):
     '''
@@ -18,22 +32,18 @@ def parse_date(unparsed_date):
         1. If you only want the hours needed, then follow the same format as <time> but with a hyphenated 'r'
         Ex. 5:00-r (Task can be completed in 5 hours or deadline is in 5 hours)
     '''
-    td_1 = datetime.timedelta(days=1)
 
-    if unparsed_date in {'mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'}:
-        #create a datetime of the immediate day available
-    elif unparsed_date == 'today':
-        parsed_date = make_EOD(datetime.datetime.now())
-    elif unparsed_date == 'tomorrow':
-        parsed_date = make_EOD(datetime.datetime.now()) + td_1
-    elif 'today' in unparsed_date:
-        #create a time from the hyphenated integer
-        day, time = unparsed_date.split('-')
-        try:
-            hour, minute = time.split(':')
-        except ValueError:
-            hour = time
-    elif 'tomorrow' in unparsed_date:
+    if '-' in unparsed_date:
+        if 'today' in unparsed_date or 'tomorrow' in unparsed_date:
+            #create a time from the hyphenated integer
+            day, time = unparsed_date.split('-')
+            try:
+                hour, minute = time.split(':')
+            except ValueError:
+                hour = time
+        elif 'tomorrow' in unparsed_date:
+    else:
+        parsed_date = verbose_day_to_datetime(unparsed_date)
 
 
 if __name__ == '__main__':
