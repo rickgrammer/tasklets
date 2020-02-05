@@ -4,7 +4,7 @@ import string
 
 class Task:
     '''
-    priority: 5, 4, 3, 2, 1, 0 ; 0 being the highest priority.
+    priority: 5, 4, 3, 2, 1, 0 ; 0 being the highest priority
     status: created, paused, finished, running.
     '''
     def __init__(self,
