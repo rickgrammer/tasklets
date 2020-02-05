@@ -4,7 +4,7 @@ import io
 
 class Store:
     '''
-        A centralised store where each task is stored.
+        A centralised store where each task is gziped and stored.
     '''
 
     def __init__(self, store_path='/opt/tasklets/store.tsk'):
