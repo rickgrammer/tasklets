@@ -13,7 +13,6 @@ class Task:
             tag='general',
             priority=3,
             deadline=None,
-            expected_time=None,
             start_time=None,
             end_time=None
             ):
@@ -26,7 +25,7 @@ class Task:
         self.expected_time = expected_time
         self.start_time = start_time
         self.end_time = end_time
-        self.status = 'new'
+        self.status = 'created'
         self.is_finished = False
 
     def start_task(self):

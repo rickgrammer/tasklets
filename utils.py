@@ -45,10 +45,6 @@ def parse_datetime(unparsed_datetime):
             HH:MM, ex: 12:30 (deadline is at 12:30)
         day-time:
             <days>-<time>, ex: mon-12:30 (deadline is on mon, 12:30)
-    
-    NOTE: 
-        1. If you only want the hours needed, then follow the same format as <time> but with a hyphenated 'r'
-        Ex. 5:00-r (Task can be completed in 5 hours or deadline is in 5 hours)
     '''
     if unparsed_datetime.count('-') > 1 or unparsed_datetime.count(':') > 1:
         raise Exception('Unsupported format %s' % unparsed_datetime)
